@@ -1,4 +1,4 @@
-package src.main.java.ru.ivfominy;
+package ru.ivfominy;
 
 public class MyFirstProgram {
     public static void main(String[] args) {
@@ -10,8 +10,4 @@ public class MyFirstProgram {
         Rectangle r=new Rectangle(4,6);
         System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + r.area());
     }
-
-
-
-
 }

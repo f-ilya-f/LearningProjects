@@ -1,4 +1,4 @@
-package src.main.java.ru.ivfominy;
+package ru.ivfominy;
 
 public class Square {
 
