@@ -1,4 +1,4 @@
-package ru.ivfominy.addressbook;
+package ru.ivfominy.addressbook.model;
 
 public class GroupData {
     private final String name;
