@@ -14,14 +14,15 @@ public class GroupModificationTests extends TestBase {
         app.goTo().groupPage();
         //предусловие на создание группы если список текущих групп пуст
         if (app.group().list().size()==0) {
-            app.group().create(new GroupData("test1", null, null));
+            app.group().create(new GroupData().withName("test1"));
         }
     }
     @Test
     public void testGroupModification() {
                 List<GroupData> before = app.group().list();
         int index=before.size()-1;
-        GroupData newGroup=new GroupData(before.get(index).getId(), "test1", "test2", "test3");
+        GroupData newGroup=new GroupData()
+                .withId(before.get(index).getId()).withName("test1").withHeader("test2").withFooter("test3");
         app.group().modify(index, newGroup);
         List<GroupData> after = app.group().list();
         Assert.assertEquals(after.size(), before.size());
