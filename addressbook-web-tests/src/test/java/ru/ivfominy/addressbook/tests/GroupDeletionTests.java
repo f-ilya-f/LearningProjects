@@ -1,12 +1,18 @@
 package ru.ivfominy.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.ivfominy.addressbook.model.GroupData;
+import ru.ivfominy.addressbook.model.Groups;
 
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class GroupDeletionTests extends TestBase {
 
@@ -21,16 +27,14 @@ public class GroupDeletionTests extends TestBase {
 
     @Test
     public void testGroupDeletion() throws Exception {
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData deletedGroup = before.iterator().next();
         app.group().delete(deletedGroup);
-        Set<GroupData> after = app.group().all();
+        Groups after = app.group().all();
         Assert.assertEquals(after.size(), before.size() - 1);   //сравнение количества групп
 
-        before.remove(deletedGroup);
-        Assert.assertEquals(after, before);   //сравнение групп по содержанию
-
-    }
+        assertThat(after, equalTo(before.without(deletedGroup)));   //сравнение групп по содержанию
+            }
 
 
 

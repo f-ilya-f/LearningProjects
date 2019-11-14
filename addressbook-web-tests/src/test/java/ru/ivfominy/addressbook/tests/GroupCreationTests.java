@@ -1,30 +1,33 @@
 package ru.ivfominy.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.ivfominy.addressbook.model.GroupData;
+import ru.ivfominy.addressbook.model.Groups;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.*;
 
 public class GroupCreationTests extends TestBase {
 
     @Test
     public void testGroupCreation() throws Exception {
         app.goTo().groupPage();
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         //int before=app.getGroupHelper().getGroupCount();
         GroupData newGroup = new GroupData().withName("test2");
         app.group().create(newGroup);
-        Set<GroupData> after = app.group().all();
-        //int after=app.getGroupHelper().getGroupCount();
-        Assert.assertEquals(after.size(), before.size() + 1);
-        //Assert.assertEquals(after, before + 1);
-
-        newGroup.withId(after.stream().mapToInt(g->g.getId()).max().getAsInt());
-        before.add(newGroup);
-                Assert.assertEquals(before, after);
+        Groups after = app.group().all();
+        assertEquals(after.size(), before.size() + 1);
+        assertThat(after, equalTo(
+                before.withAdded(newGroup.withId(after.stream().mapToInt(g->g.getId()).max().getAsInt()))));
     }
 
 
