@@ -7,32 +7,30 @@ import ru.ivfominy.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().groupPage();
         //предусловие на создание группы если список текущих групп пуст
-        if (app.group().list().size()==0) {
+        if (app.group().all().size()==0) {
             app.group().create(new GroupData().withName("test1"));
         }
     }
     @Test
     public void testGroupModification() {
-                List<GroupData> before = app.group().list();
-        int index=before.size()-1;
+                Set<GroupData> before = app.group().all();
+                GroupData modifiedGroup=before.iterator().next();
         GroupData newGroup=new GroupData()
-                .withId(before.get(index).getId()).withName("test1").withHeader("test2").withFooter("test3");
-        app.group().modify(index, newGroup);
-        List<GroupData> after = app.group().list();
+                .withId(modifiedGroup.getId()).withName("test1").withHeader("test2").withFooter("test3");
+        app.group().modify(newGroup);
+        Set<GroupData> after = app.group().all();
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(index);
+        before.remove(modifiedGroup);
         before.add(newGroup);
-        Comparator<? super GroupData> byId= (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+               Assert.assertEquals(before, after);
     }
 
 
