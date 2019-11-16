@@ -56,13 +56,6 @@ public class GroupData {
         this.footer = footer;
         return this;
     }
-    @Override
-    public String toString() {
-        return "GroupData{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -77,4 +70,13 @@ public class GroupData {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
+    @Override
+    public String toString() {
+        return "GroupData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
 }
