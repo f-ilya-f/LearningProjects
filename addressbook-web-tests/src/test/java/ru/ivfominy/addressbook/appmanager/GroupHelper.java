@@ -55,6 +55,7 @@ public class GroupHelper extends HelperBase {
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
+        groupCashe = null;
         returnToGroupPage();
     }
 
@@ -63,12 +64,14 @@ public class GroupHelper extends HelperBase {
         initGroupModification();
         fillGroupForm(newGroup);
         submitGroupModification();
+        groupCashe = null;
         returnToGroupPage();
     }
 
     public void delete(GroupData group) {
         selectGroupById(group.getId());
         deleteSelectedGroups();
+        groupCashe = null;
         returnToGroupPage();
     }
     public boolean isThereAGroup() {
