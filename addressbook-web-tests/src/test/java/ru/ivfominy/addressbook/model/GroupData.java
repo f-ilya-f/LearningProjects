@@ -1,15 +1,16 @@
 package ru.ivfominy.addressbook.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.Objects;
 @XStreamAlias("group")
 public class GroupData {
-    @XStreamOmitField private int id= Integer.MAX_VALUE;
-    private  String name;
-    private  String header;
-    private  String footer;
+    @XStreamOmitField private int id= Integer.MAX_VALUE;    //чтобы пропустить это поле при загрузке в xml формат
+    @Expose private  String name;       //чтобы отображалось при загрузке в json формат
+    @Expose private  String header;     //чтобы отображалось при загрузке в json формат
+    @Expose private  String footer;     //чтобы отображалось при загрузке в json формат
 /*
     public GroupData(int id, String name, String header, String footer) {
         this.id = id;
